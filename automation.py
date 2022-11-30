@@ -49,22 +49,9 @@ def main(username, password):
     return 'pog'
 
 if __name__ == '__main__':
-    with open('credentials.csv') as csvfile:
-        acc_details = []
-        data = csv.reader(csvfile, delimiter=' ', quotechar=' ')
-        for row in data:
-            acc_details.append(row[0].split('\t'))
-        acc_details.remove(acc_details[0])
 
-        [['201805Q,P@ssw0rd!123,ACa2a5730cf28b4e09f8a674cecc9230dd,a01d7989860c896e96d17a8fa558ddff,17175395560,6581611479']]
-        username = acc_details[0][0]
-        password = acc_details[0][1]
-        Twilio_SID = acc_details[0][2]
-        Auth_Token = acc_details[0][3]
-        twilioPhone = acc_details[0][4]
-        phone = acc_details[0][5]
 
-        print(username, password, Twilio_SID, Auth_Token, twilioPhone, phone)
+    [['201805Q,P@ssw0rd!123,ACa2a5730cf28b4e09f8a674cecc9230dd,a01d7989860c896e96d17a8fa558ddff,17175395560,6581611479']]
         
 
 
