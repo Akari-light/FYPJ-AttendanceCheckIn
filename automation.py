@@ -44,10 +44,12 @@ class Attendance_System:
         # Click on Sign In/Out
         driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/ul/li[1]/a').click()
 
+        '''
         # Check In/Out of the system
         driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[5]/div/div/div[4]/div[3]/input').click()
         # Confirmation
-        # driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[8]/div/div/div[3]/button').click()
+        driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[8]/div/div/div[3]/button').click()
+        '''
 
         # Check In Notificaton
         if datetime.time(8,25,0) <= datetime.datetime.now().time() <= datetime.time(8,30,59):
@@ -56,8 +58,10 @@ class Attendance_System:
         elif datetime.time(5,59,59) <= datetime.datetime.now().time() <= datetime.time(6,6,0):
             self.notification("You have Successfully Checked Out of the FYPJ System at " + ctime())
         
-        # self.msg = "Test Run - script is working as of " + ctime()
-        # self.notification()
+        '''
+        self.msg = "Test Run - script is working as of " + ctime()
+        self.notification()
+        '''
 
         # return driver
         return driver
@@ -97,6 +101,5 @@ if __name__ == '__main__':
         else:
             sleep(21600)
             continue
-
     # '''
 
