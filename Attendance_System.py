@@ -74,13 +74,11 @@ class Attendance_System:
         driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/a').click()
         # Click on Sign In/Out
         driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/ul/li[1]/a').click()
-
-        '''
         # Check In/Out of the system
         driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[5]/div/div/div[4]/div[3]/input').click()
-        # Confirmation
+        # Click Confirmation
         driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[8]/div/div/div[3]/button').click()
-        '''
+
 
         # Check In Notificaton
         if datetime.time(8,25,0) <= datetime.datetime.now().time() <= datetime.time(8,30,59):
@@ -89,20 +87,10 @@ class Attendance_System:
         elif datetime.time(5,59,59) <= datetime.datetime.now().time() <= datetime.time(6,6,0):
             self.notification("You have Successfully Checked Out of the FYPJ System at " + ctime())
         
-        # '''
-        self.notification("Test Run - script is working as of " + ctime())
-        # '''
 
         # return driver
         return driver
 
-
-def debug():
-    #Setup for script
-    user_instance = SetUp()
-    user_instance.encryption()
-    credentials = user_instance.getCredentials()
-    system_instance = Attendance_System(credentials["username"], credentials["password"],credentials["account_sid"],credentials["auth_token"],credentials["twilio_phone"],credentials["usr_phone"])
 
 if __name__ == '__main__':
     #Setup for script
@@ -111,7 +99,6 @@ if __name__ == '__main__':
     credentials = user_instance.getCredentials()
     system_instance = Attendance_System(credentials["username"], credentials["password"],credentials["account_sid"],credentials["auth_token"],credentials["twilio_phone"],credentials["usr_phone"])
 
-    # '''
     while True:
         current_time = datetime.datetime.now()
 
@@ -122,21 +109,25 @@ if __name__ == '__main__':
                 # Emulate human's randomness (Up to 4mins)  
                 sleep(randint(1,240))
                 try:
-                    driver = system_instance.automation() 
+                    driver = system_instance.automation()
+                    print("Successfully Checked In on " + ctime())
+                    driver.close()
                 except:
                     system_instance.notification("You have Failed to Check In of the FYPJ System at " + ctime())
 
-                # sleep(21600)
+                sleep(21600)
             # Trigger Function at 6:00 pm
-            elif datetime.time(18,0,0) <= datetime.datetime.now().time() <= datetime.time(6,6,0):
+            elif datetime.time(18,0,0) <= datetime.datetime.now().time() <= datetime.time(18,10,0):
                 # Emulate human's randomness (Up to 4mins)  
                 sleep(randint(1,240))
                 try:
                     driver = system_instance.automation() 
+                    print("Successfully Checked Out on " + ctime())
+                    driver.close()
                 except:
                     system_instance.notification("You have Failed to Check Out of the FYPJ System at " + ctime())
-
-                # sleep(21600)
+                
+                sleep(21600)
             # Stop the script for 5 mins
             else:
                 sleep(300)     
@@ -144,4 +135,3 @@ if __name__ == '__main__':
         else:
             sleep(21600)
             continue
-    # '''
