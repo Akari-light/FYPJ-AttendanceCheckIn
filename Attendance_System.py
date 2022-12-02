@@ -84,7 +84,7 @@ class Attendance_System:
         if datetime.time(8,25,0) <= datetime.datetime.now().time() <= datetime.time(8,30,59):
             self.notification("You have Successfully Checked Into the FYPJ System at " + ctime())
         # Check Out Notificaton
-        elif datetime.time(5,59,59) <= datetime.datetime.now().time() <= datetime.time(6,6,0):
+        elif datetime.time(18,0,0) <= datetime.datetime.now().time() <= datetime.time(18,10,0):
             self.notification("You have Successfully Checked Out of the FYPJ System at " + ctime())
         
 
@@ -98,6 +98,7 @@ if __name__ == '__main__':
     user_instance.encryption()
     credentials = user_instance.getCredentials()
     system_instance = Attendance_System(credentials["username"], credentials["password"],credentials["account_sid"],credentials["auth_token"],credentials["twilio_phone"],credentials["usr_phone"])
+    print("System Initialized: Starting System\n===== Welcome user {}! =====".format(credentials["username"]))
 
     while True:
         current_time = datetime.datetime.now()
