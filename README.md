@@ -51,5 +51,5 @@ If your computer auto locks-out, Open a new command prompt (CMD) and run the cof
 
 Command:
 ```
-python Coddee.py
+python Coffee.py
 ```
