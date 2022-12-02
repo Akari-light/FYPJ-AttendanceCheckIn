@@ -7,10 +7,10 @@ Automatically helps you Check In/Out of the NYP FYPJ 2.0 System!
 - [Prevents Window from auto-locking you out](https://towardsdatascience.com/how-to-keep-windows-from-sleeping-570d2042b338)
 
 # Requirements
-    - [Twilio Account w SMS enabled](https://www.twilio.com/login)
-    - Python v3.10.0
-    - Packages from requirements.txt
-    - Windows 10
+- [Twilio Account w SMS enabled](https://www.twilio.com/login)
+- Python v3.10.0
+- Packages from requirements.txt
+- Windows 10
 
 # Instructions
 ### Step 1
