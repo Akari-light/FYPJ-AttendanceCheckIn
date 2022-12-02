@@ -97,33 +97,21 @@ class Attendance_System:
         return driver
 
 
+def debug():
+    #Setup for script
+    user_instance = SetUp()
+    user_instance.encryption()
+    credentials = user_instance.getCredentials()
+    system_instance = Attendance_System(credentials["username"], credentials["password"],credentials["account_sid"],credentials["auth_token"],credentials["twilio_phone"],credentials["usr_phone"])
+
 if __name__ == '__main__':
     #Setup for script
     user_instance = SetUp()
     user_instance.encryption()
     credentials = user_instance.getCredentials()
     system_instance = Attendance_System(credentials["username"], credentials["password"],credentials["account_sid"],credentials["auth_token"],credentials["twilio_phone"],credentials["usr_phone"])
-    
-    while True:
-        current_time = datetime.datetime.now()
 
-        # Check if today is Monday - Friday
-        if current_time.isoweekday() in range(1, 6):
-            if datetime.time(13,0,0) <= datetime.datetime.now().time() <= datetime.time(13,59,59):
-                driver = system_instance.automation() 
-                print("Working")
-                quit()
-            # Stop the script for 5 mins
-            else:
-                sleep(300)     
-        # Stop Running the code on Saturday and Sunday by pausing the code for 6 hours:
-        else:
-            sleep(21600)
-            continue
-
-
-
-    '''
+    # '''
     while True:
         current_time = datetime.datetime.now()
 
@@ -156,4 +144,4 @@ if __name__ == '__main__':
         else:
             sleep(21600)
             continue
-    '''
+    # '''
