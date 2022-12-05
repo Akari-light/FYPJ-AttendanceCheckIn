@@ -116,7 +116,7 @@ if __name__ == '__main__':
 
         # Check if today is Monday - Friday
         if current_time.isoweekday() in range(1, 6):
-            # Trigger Check In Function at 8.20 am
+            # Trigger Check In Function after 8.20 am
             if datetime.time(8,20,0) <= current_time.time() <= datetime.time(8,30,59):
                 # Emulate human's randomness (Up to 4mins)  
                 sleep(randint(1,240))
@@ -127,7 +127,7 @@ if __name__ == '__main__':
                     system_instance.notification(f"You have Failed to Check Into the FYPJ System at {ctime()}\n\n ERROR Code: {e}" )
 
                 sleep(21600)
-            # Trigger Check Out Function at 6.00pm / 5.30pm
+            # Trigger Check Out Function after 6.00pm / 5.30pm
             elif checkout <= current_time.time() <= (current_time + datetime.timedelta(minutes=10)).time():
                 # Emulate human's randomness (Up to 4mins)  
                 sleep(randint(1,240))
