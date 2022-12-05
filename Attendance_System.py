@@ -58,7 +58,7 @@ class Attendance_System:
                             to = self.usr_phone
                         )
 
-    def automation(self):
+    def log_in(self):
         # Go to FYPJ 2.0 Website
         driver = webdriver.Chrome()
         driver.get('https://fypj.sit.nyp.edu.sg/')
@@ -70,24 +70,41 @@ class Attendance_System:
         driver.find_element('xpath','/html/body/div/div/div/div/div[2]/form/fieldset/div[3]/input').send_keys(self.password)
         driver.find_element('xpath','/html/body/div/div/div/div/div[2]/form/fieldset/div[6]/input[2]').click()
 
+        return driver
+        
+
+    def check_in(self, driver):
+        pass
+
+    def check_out(self):
+        driver = self.log_in()
+        
         # Click on Student Dropdown Button
         driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/a').click()
         # Click on Sign In/Out
         driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/ul/li[1]/a').click()
-        # Check In/Out of the system
+        # Check Out of the system
         driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[5]/div/div/div[4]/div[3]/input').click()
-        # Click Confirmation
-        driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[8]/div/div/div[3]/button').click()
+        # # Click Confirmation
+        # driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[8]/div/div/div[3]/button').click()
 
+        self.notification("You have Successfully Checked Out of the FYPJ System at " + ctime())
+
+        
+        driver.close()
+
+
+    def automation(self):
+
+
+        driver = self.log_in()
 
         # Check In Notificaton
         if datetime.time(8,25,0) <= datetime.datetime.now().time() <= datetime.time(8,30,59):
             self.notification("You have Successfully Checked Into the FYPJ System at " + ctime())
         # Check Out Notificaton
         elif datetime.time(18,0,0) <= datetime.datetime.now().time() <= datetime.time(18,10,0):
-            self.notification("You have Successfully Checked Out of the FYPJ System at " + ctime())
-        
-
+            pass
         # return driver
         return driver
 
@@ -105,26 +122,26 @@ if __name__ == '__main__':
 
         # Check if today is Monday - Friday
         if current_time.isoweekday() in range(1, 6):
-            # Trigger Function at 8.20 am
+            checkout = datetime.time(17,30,0) if current_time.isoweekday() == 5 else datetime.time(18,0,0)
+            # Trigger Check In Function at 8.20 am
             if datetime.time(8,20,0) <= datetime.datetime.now().time() <= datetime.time(8,30,59):
                 # Emulate human's randomness (Up to 4mins)  
                 sleep(randint(1,240))
                 try:
-                    driver = system_instance.automation()
+                    system_instance.check_in()
                     print("Successfully Checked In on " + ctime())
-                    driver.close()
                 except:
                     system_instance.notification("You have Failed to Check In of the FYPJ System at " + ctime())
 
                 sleep(21600)
-            # Trigger Function at 6:00 pm
-            elif datetime.time(18,0,0) <= datetime.datetime.now().time() <= datetime.time(18,10,0):
+            # Trigger Check Out Function at 6.00pm / 5.30pm
+            elif datetime.time(14,25,0) <= datetime.datetime.now().time() <= datetime.time(14,30,0):
+            # elif checkout <= datetime.datetime.now().time() <= datetime.time(18,10,0):
                 # Emulate human's randomness (Up to 4mins)  
                 sleep(randint(1,240))
                 try:
-                    driver = system_instance.automation() 
+                    system_instance.check_out() 
                     print("Successfully Checked Out on " + ctime())
-                    driver.close()
                 except:
                     system_instance.notification("You have Failed to Check Out of the FYPJ System at " + ctime())
                 
