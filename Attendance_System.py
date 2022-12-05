@@ -92,12 +92,12 @@ class Attendance_System:
         self.driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/a').click()
         # Click on Sign In/Out
         self.driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/ul/li[1]/a').click()
-        # # Check Out of the system
-        # self.driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[5]/div/div/div[4]/div[3]/input').click()
-        # # Click Confirmation
-        # self.driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[8]/div/div/div[3]/button').click()
+        # Check Out of the system
+        self.driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[5]/div/div/div[4]/div[3]/input').click()
+        # Click Confirmation
+        self.driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[8]/div/div/div[3]/button').click()
 
-        # self.notification("You have Successfully Checked Out of the FYPJ System at " + ctime())
+        self.notification("You have Successfully Checked Out of the FYPJ System at " + ctime())
         self.driver.close()
 
 if __name__ == '__main__':
