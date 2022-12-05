@@ -60,54 +60,45 @@ class Attendance_System:
 
     def log_in(self):
         # Go to FYPJ 2.0 Website
-        driver = webdriver.Chrome()
-        driver.get('https://fypj.sit.nyp.edu.sg/')
-        driver.implicitly_wait(10)
+        self.driver = webdriver.Chrome()
+        self.driver.get('https://fypj.sit.nyp.edu.sg/')
+        self.driver.implicitly_wait(10)
 
         # Enter Username
-        driver.find_element('xpath','/html/body/div/div/div/div/div[2]/form/fieldset/div[2]/input').send_keys(self.username)
+        self.driver.find_element('xpath','/html/body/div/div/div/div/div[2]/form/fieldset/div[2]/input').send_keys(self.username)
         # Enter Password
-        driver.find_element('xpath','/html/body/div/div/div/div/div[2]/form/fieldset/div[3]/input').send_keys(self.password)
-        driver.find_element('xpath','/html/body/div/div/div/div/div[2]/form/fieldset/div[6]/input[2]').click()
+        self.driver.find_element('xpath','/html/body/div/div/div/div/div[2]/form/fieldset/div[3]/input').send_keys(self.password)
+        self.driver.find_element('xpath','/html/body/div/div/div/div/div[2]/form/fieldset/div[6]/input[2]').click()
 
-        return driver
-        
-
-    def check_in(self, driver):
-        pass
-
-    def check_out(self):
-        driver = self.log_in()
+    def check_in(self):
+        self.log_in()
         
         # Click on Student Dropdown Button
-        driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/a').click()
+        self.driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/a').click()
         # Click on Sign In/Out
-        driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/ul/li[1]/a').click()
-        # Check Out of the system
-        driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[5]/div/div/div[4]/div[3]/input').click()
-        # # Click Confirmation
-        # driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[8]/div/div/div[3]/button').click()
+        self.driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/ul/li[1]/a').click()
+        # Check In the system
+        self.driver.find_element('xpath', '').click()
+        # Click Confirmation
+        self.driver.find_element('xpath', '').click()
 
-        self.notification("You have Successfully Checked Out of the FYPJ System at " + ctime())
+        self.notification("You have Successfully Checked Into the FYPJ System at " + ctime())
+        self.driver.close()        
 
+    def check_out(self):
+        self.log_in()
         
-        driver.close()
+        # Click on Student Dropdown Button
+        self.driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/a').click()
+        # Click on Sign In/Out
+        self.driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/ul/li[1]/a').click()
+        # # Check Out of the system
+        # self.driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[5]/div/div/div[4]/div[3]/input').click()
+        # # Click Confirmation
+        # self.driver.find_element('xpath', '/html/body/form/div[3]/div[2]/div[8]/div/div/div[3]/button').click()
 
-
-    def automation(self):
-
-
-        driver = self.log_in()
-
-        # Check In Notificaton
-        if datetime.time(8,25,0) <= datetime.datetime.now().time() <= datetime.time(8,30,59):
-            self.notification("You have Successfully Checked Into the FYPJ System at " + ctime())
-        # Check Out Notificaton
-        elif datetime.time(18,0,0) <= datetime.datetime.now().time() <= datetime.time(18,10,0):
-            pass
-        # return driver
-        return driver
-
+        # self.notification("You have Successfully Checked Out of the FYPJ System at " + ctime())
+        self.driver.close()
 
 if __name__ == '__main__':
     #Setup for script
@@ -117,39 +108,40 @@ if __name__ == '__main__':
     system_instance = Attendance_System(credentials["username"], credentials["password"],credentials["account_sid"],credentials["auth_token"],credentials["twilio_phone"],credentials["usr_phone"])
     print("System Initialized: Starting System\n===== Welcome user {}! =====".format(credentials["username"]))
 
+
     while True:
         current_time = datetime.datetime.now()
+        # Set Checkout time to 5,30pm on fridays and 6pm on other weekdays
+        checkout = datetime.time(17,30,0) if current_time.isoweekday() == 5 else datetime.time(18,0,0)
 
         # Check if today is Monday - Friday
         if current_time.isoweekday() in range(1, 6):
-            checkout = datetime.time(17,30,0) if current_time.isoweekday() == 5 else datetime.time(18,0,0)
             # Trigger Check In Function at 8.20 am
-            if datetime.time(8,20,0) <= datetime.datetime.now().time() <= datetime.time(8,30,59):
+            if datetime.time(8,20,0) <= current_time.time() <= datetime.time(8,30,59):
                 # Emulate human's randomness (Up to 4mins)  
                 sleep(randint(1,240))
                 try:
                     system_instance.check_in()
                     print("Successfully Checked In on " + ctime())
-                except:
-                    system_instance.notification("You have Failed to Check In of the FYPJ System at " + ctime())
+                except Exception as e:
+                    system_instance.notification(f"You have Failed to Check Into the FYPJ System at {ctime()}\n\n ERROR Code: {e}" )
 
                 sleep(21600)
             # Trigger Check Out Function at 6.00pm / 5.30pm
-            elif datetime.time(14,25,0) <= datetime.datetime.now().time() <= datetime.time(14,30,0):
-            # elif checkout <= datetime.datetime.now().time() <= datetime.time(18,10,0):
+            elif checkout <= current_time.time() <= (current_time + datetime.timedelta(minutes=10)).time():
                 # Emulate human's randomness (Up to 4mins)  
                 sleep(randint(1,240))
                 try:
                     system_instance.check_out() 
                     print("Successfully Checked Out on " + ctime())
-                except:
-                    system_instance.notification("You have Failed to Check Out of the FYPJ System at " + ctime())
+                except Exception as e:
+                    system_instance.notification(f"You have Failed to Check Out of the FYPJ System at {ctime()}\n\n ERROR Code: {e}" )
                 
                 sleep(21600)
             # Stop the script for 5 mins
             else:
                 sleep(300)     
-        # Stop Running the code on Saturday and Sunday by pausing the code for 6 hours:
+        # Stop Running the code on Saturday and Sunday by pausing the code every 6 hours:
         else:
             sleep(21600)
             continue
