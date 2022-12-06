@@ -1,5 +1,5 @@
 from cryptography.fernet import Fernet
-from twilio.rest import Client
+# from twilio.rest import Client
 from selenium import webdriver
 from time import sleep, ctime
 from random import randint
@@ -20,7 +20,8 @@ class SetUp:
         with open(str(self.current_dir)+'\credentials.txt', 'r') as f:
             creds_list= f.read().split('\n')
             for i in creds_list:
-                self.credentials[i.split(":")[0].strip(' ')] = i.split(":")[1].strip(' ')
+                if i.strip(' ') != '':
+                    self.credentials[i.split(":")[0].strip(' ')] = i.split(":")[1].strip(' ')
 
         # Reset credentials.txt
         with open(str(self.current_dir)+'\credentials.txt', 'w') as f:
@@ -108,6 +109,7 @@ if __name__ == '__main__':
     system_instance = Attendance_System(credentials["username"], credentials["password"],credentials["account_sid"],credentials["auth_token"],credentials["twilio_phone"],credentials["usr_phone"])
     print("System Initialized: Starting System\n===== Welcome user {}! =====".format(credentials["username"]))
 
+    
 
     while True:
         current_time = datetime.datetime.now()
