@@ -16,7 +16,7 @@ Automatically helps you Check In/Out of the NYP FYPJ 2.0 System!
 ### Step 1
 Clone the repository
 ```
-git clone 'https://github.com/Akari-light/FYPJ-AttendanceTakingSystem'
+git clone https://github.com/Akari-light/FYPJ-AttendanceTakingSystem
 ```
 Alternatively, download and unzip the Attendence_System.zip
 ### Step 2
@@ -47,11 +47,11 @@ Command:
 python Attendance_System.py
 ```
 ### Step 5 (Optional)
-If your computer auto locks-out, Open a new command prompt (CMD) and run the coffee.py to keep your computer awake!
+If your computer auto locks out, Open a new command prompt (CMD) and run the coffee.py to keep your computer awake!
 
 Command:
 ```
 python Coffee.py
 ```
 # Disclaimer 
-Use the programme responsibily!!
+Use the programme responsibly!!
