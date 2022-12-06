@@ -78,9 +78,9 @@ class Attendance_System:
         # Click on Sign In/Out
         self.driver.find_element('xpath', '/html/body/form/div[3]/nav/div/div[2]/ul[1]/li[1]/ul/li[1]/a').click()
         # Check In the system
-        self.driver.find_element('xpath', '').click()
+        self.driver.find_element('xpath', '//*[@id="form1"]/div[3]/div[2]/div[5]/div/div/div[4]/div[2]').click()
         # Click Confirmation
-        self.driver.find_element('xpath', '').click()
+        self.driver.find_element('xpath', '//*[@id="ContentPlaceHolder1_btn_ok"]').click()
 
         self.notification("You have Successfully Checked Into the FYPJ System at " + ctime())
         self.driver.close()        
@@ -116,10 +116,10 @@ if __name__ == '__main__':
 
         # Check if today is Monday - Friday
         if current_time.isoweekday() in range(1, 6):
-            # Trigger Check In Function after 8.20 am
-            if datetime.time(8,20,0) <= current_time.time() <= datetime.time(8,30,59):
-                # Emulate human's randomness (Up to 4mins)  
-                sleep(randint(1,240))
+            # Trigger Check In Function after 8.00 am
+            if datetime.time(8,0,0) <= current_time.time() <= datetime.time(8,30,59):
+                # Emulate human's randomness (Up to 20 mins)  
+                sleep(randint(1,1200))
                 try:
                     system_instance.check_in()
                     print("Successfully Checked In on " + ctime())

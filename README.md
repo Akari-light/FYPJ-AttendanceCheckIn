@@ -38,7 +38,7 @@ twilio_phone : <Twilio's Phone Number>
 usr_phone    : <Phone number to receive notifications>
 ```
 
-**Note: Twilio's Account Info can be found at your twilio account console page.**
+**Note: Twilio's Account Info can be found at your twilio account [console page](https://console.twilio.com/).**
 ### Step 4
 From your command prompt (CMD), navigate to the directory where to programme is stored and start Attendance_System.py
 
