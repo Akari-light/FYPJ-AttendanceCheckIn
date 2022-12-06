@@ -15,6 +15,8 @@ Automatically helps you Check In/Out of the NYP FYPJ 2.0 System!
 # Instructions
 ### Step 1
 Clone the repository
+
+Command:
 ```
 git clone 'https://github.com/Akari-light/FYPJ-AttendanceTakingSystem'
 ```
@@ -27,7 +29,7 @@ Command:
 python -r requirements.txt
 ```
 ### Step 3
-Configure `credentials.txt` with your login and twilio credentials.
+Edit `credentials.txt` with your login and twilio credentials.<br />
 Sample:
 ```
 username     : <FYPJ Login Username>
