@@ -130,7 +130,7 @@ if __name__ == '__main__':
 
                 sleep(21600)
             # Trigger Check Out Function after 6.00pm / 5.30pm
-            elif checkout <= current_time.time() <= (current_time + datetime.timedelta(minutes=10)).time():
+            elif checkout <= current_time.time() <= (checkout + datetime.timedelta(minutes=10)).time():
                 # Emulate human's randomness (Up to 4mins)  
                 sleep(randint(1,240))
                 try:
