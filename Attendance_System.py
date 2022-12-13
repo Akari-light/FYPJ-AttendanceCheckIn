@@ -113,8 +113,8 @@ if __name__ == '__main__':
 
     while True:
         current_time = datetime.datetime.now()
-        # Set Checkout time to 5,30pm on fridays and 6pm on other weekdays
-        checkout = datetime.time(17,30,0) if current_time.isoweekday() == 5 else datetime.time(18,0,0)
+        # Set Checkout time to 5,30pm on fridays and 6pm on other weekdays (require fixing)
+        # checkout = datetime.time(17,30,0) if current_time.isoweekday() == 5 else datetime.time(18,0,0)
 
         # Check if today is Monday - Friday
         if current_time.isoweekday() in range(1, 6):
@@ -130,7 +130,8 @@ if __name__ == '__main__':
 
                 sleep(21600)
             # Trigger Check Out Function after 6.00pm / 5.30pm
-            elif checkout <= current_time.time() <= (checkout + datetime.timedelta(minutes=10)).time():
+            elif datetime.time(18,0,0) <= current_time.time() <= datetime.time(18,10,59):
+            # elif checkout <= current_time.time() <= (checkout + datetime.timedelta(minutes=10)).time():
                 # Emulate human's randomness (Up to 4mins)  
                 sleep(randint(1,240))
                 try:
