@@ -109,12 +109,8 @@ if __name__ == '__main__':
     system_instance = Attendance_System(credentials["username"], credentials["password"],credentials["account_sid"],credentials["auth_token"],credentials["twilio_phone"],credentials["usr_phone"])
     print("System Initialized: Starting System\n===== Welcome user {}! =====".format(credentials["username"]))
 
-    
-
     while True:
         current_time = datetime.datetime.now()
-        # Set Checkout time to 5,30pm on fridays and 6pm on other weekdays (require fixing)
-        # checkout = datetime.time(17,30,0) if current_time.isoweekday() == 5 else datetime.time(18,0,0)
 
         # Check if today is Monday - Friday
         if current_time.isoweekday() in range(1, 6):
@@ -122,16 +118,28 @@ if __name__ == '__main__':
             if datetime.time(8,0,0) <= current_time.time() <= datetime.time(8,30,59):
                 # Emulate human's randomness (Up to 20 mins)  
                 sleep(randint(1,1200))
+                print('lol')
+
                 try:
                     system_instance.check_in()
                     print("Successfully Checked In on " + ctime())
                 except Exception as e:
                     system_instance.notification(f"You have Failed to Check Into the FYPJ System at {ctime()}\n\n ERROR Code: {e}" )
 
+                sleep(21600)    
+            # Trigger Check Out Function after 5.30pm on Friday
+            elif datetime.time(17,30,0) <= current_time.time() <= datetime.time(17,40,59) and current_time.isoweekday() == 5:
+                # Emulate human's randomness (Up to 4mins)  
+                sleep(randint(1,240))
+                try:
+                    system_instance.check_out() 
+                    print("Successfully Checked Out on " + ctime())
+                except Exception as e:
+                    system_instance.notification(f"You have Failed to Check Out of the FYPJ System at {ctime()}\n\n ERROR Code: {e}" )
+                
                 sleep(21600)
-            # Trigger Check Out Function after 6.00pm / 5.30pm
+            # Trigger Check Out Function after 6.00pm on mon - thurs
             elif datetime.time(18,0,0) <= current_time.time() <= datetime.time(18,10,59):
-            # elif checkout <= current_time.time() <= (checkout + datetime.timedelta(minutes=10)).time():
                 # Emulate human's randomness (Up to 4mins)  
                 sleep(randint(1,240))
                 try:
@@ -143,7 +151,7 @@ if __name__ == '__main__':
                 sleep(21600)
             # Stop the script for 5 mins
             else:
-                sleep(300)     
+                sleep(300)           
         # Stop Running the code on Saturday and Sunday by pausing the code every 6 hours:
         else:
             sleep(21600)
